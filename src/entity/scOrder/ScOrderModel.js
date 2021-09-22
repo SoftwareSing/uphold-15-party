@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema({
   schemaVersion: {
     type: String,
-    default: '001.001.000'
+    default: '001.000.000'
   },
   scCardId: {
     type: String,
