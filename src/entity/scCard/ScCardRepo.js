@@ -21,7 +21,7 @@ exports.upsertScCard = async function ({ scCardNo, goodThru, code, password }) {
   const update$set = {}
   if (goodThru) update$set.goodThru = goodThru
   if (code) update$set.code = code
-  if (password) update$set.argon2Password = await ScCard.hashPasswordByArgon2(password)
+  if (password) update$set.passwordArgon2 = await ScCard.hashPasswordByArgon2(password)
 
   const obj = await ScCardModel.findOneAndUpdate(
     { scCardNo },
