@@ -20,7 +20,7 @@ exports.orderSc = async function ({ scCardNo, goodThru, code, password, scText, 
   })
   await ScOrderLogRepo.writeLog({
     scOrderId: order.scOrderId,
-    message: '已收到申請，我們會盡速處理這則申請'
+    message: '已收到申請\n我們會盡速處理這則申請'
   })
 
   return {
