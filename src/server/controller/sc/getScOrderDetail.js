@@ -18,6 +18,7 @@ exports.getScOrderDetail = async function ({ scOrderId }) {
       orderStatus: order.orderStatus,
       scText: order.scText,
       scNote: order.scNote,
+      imgUrl: order.imgUrl,
       createdAt: order.createdAt
     },
     scOrderLogList: logList.map((log) => ({

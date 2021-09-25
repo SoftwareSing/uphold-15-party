@@ -15,12 +15,13 @@ class ScOrder {
    * @param {String} obj.scNote
    * @param {Date} obj.createdAt
    */
-  constructor ({ scOrderId, orderStatus, scCardId, scText, scNote, createdAt }) {
+  constructor ({ scOrderId, orderStatus, scCardId, scText, scNote, imgUrl, createdAt }) {
     this.scOrderId = scOrderId
     this.orderStatus = orderStatus
     this.scCardId = scCardId
     this.scText = scText
     this.scNote = scNote
+    this.imgUrl = imgUrl
     this.createdAt = new Date(createdAt)
   }
 }

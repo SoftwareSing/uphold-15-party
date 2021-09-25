@@ -22,6 +22,10 @@ const schema = new mongoose.Schema({
   scNote: {
     type: String,
     default: ''
+  },
+  imgUrl: {
+    type: String,
+    default: ''
   }
 }, { collection: 'sc_order', timestamps: true, versionKey: false })
 
