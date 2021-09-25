@@ -15,3 +15,12 @@ exports.getByOrderId = async function (scOrderId) {
   if (!obj) return undefined
   return buildScOrder(obj)
 }
+
+exports.getNewestList = async function () {
+  const objList = await ScOrderModel
+    .find({}, projection)
+    .sort({ createdAt: -1 })
+    .limit(100)
+    .lean()
+  return objList.map(buildScOrder)
+}

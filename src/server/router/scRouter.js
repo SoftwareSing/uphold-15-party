@@ -5,6 +5,12 @@ const { getReqHandleFunc } = require('./getReqHandleFunc')
 
 const scRouterV1 = express.Router()
 
+scRouterV1.route('/order/list')
+  .get(getReqHandleFunc(
+    (req) => ScController.getList(),
+    { cacheControl: 'public, max-age=10' }
+  ))
+
 scRouterV1.route('/order/:scOrderId')
   .get(getReqHandleFunc(
     (req) => ScController.getScOrderDetail({ scOrderId: req.params.scOrderId }),

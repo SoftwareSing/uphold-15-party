@@ -30,6 +30,7 @@ const schema = new mongoose.Schema({
 }, { collection: 'sc_order', timestamps: true, versionKey: false })
 
 schema.index({ scCardId: 1, createdAt: -1 })
+schema.index({ createdAt: -1 })
 
 const model = mongoose.model('ScOrder', schema)
 module.exports = model
