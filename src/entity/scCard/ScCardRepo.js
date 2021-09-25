@@ -2,10 +2,10 @@ const ScCard = require('./ScCard')
 const ScCardModel = require('./ScCardModel')
 const { buildScCard } = require('./helper')
 
-const defaultProjection = { schemaVersion: 0, createdAt: 0, updatedAt: 0 }
+const projection = { schemaVersion: 0, createdAt: 0, updatedAt: 0 }
 
 exports.getByScCardNo = async function (scCardNo) {
-  const obj = await ScCardModel.findOne({ scCardNo }, defaultProjection).lean()
+  const obj = await ScCardModel.findOne({ scCardNo }, projection).lean()
   if (!obj) return undefined
   return buildScCard(obj)
 }
@@ -26,7 +26,7 @@ exports.upsertScCard = async function ({ scCardNo, goodThru, code, password }) {
   const obj = await ScCardModel.findOneAndUpdate(
     { scCardNo },
     { $set: update$set },
-    { new: true, upsert: true, setDefaultsOnInsert: true, projection: defaultProjection }
+    { new: true, upsert: true, setDefaultsOnInsert: true, projection: projection }
   ).lean()
   return buildScCard(obj)
 }

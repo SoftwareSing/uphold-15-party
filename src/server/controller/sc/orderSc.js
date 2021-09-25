@@ -1,6 +1,7 @@
 const HttpError = require('~common/error/HttpError')
 const ScCardRepo = require('~entity/scCard/ScCardRepo')
 const ScOrderRepo = require('~entity/scOrder/ScOrderRepo')
+const ScOrderLogRepo = require('~entity/scOrderLog/ScOrderLogRepo')
 
 exports.orderSc = async function ({ scCardNo, goodThru, code, password, scText, scNote }) {
   for (const param of [scCardNo, goodThru, code, password, scText, scNote]) {
@@ -16,6 +17,10 @@ exports.orderSc = async function ({ scCardNo, goodThru, code, password, scText, 
     scCardId: card.scCardId,
     scText,
     scNote
+  })
+  await ScOrderLogRepo.writeLog({
+    scOrderId: order.scOrderId,
+    message: '已收到申請，我們會盡速處理這則申請'
   })
 
   return {

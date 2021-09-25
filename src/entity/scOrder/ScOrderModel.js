@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
+const ScOrder = require('./ScOrder')
 
 const schema = new mongoose.Schema({
   schemaVersion: {
     type: String,
     default: '001.000.000'
+  },
+  orderStatus: {
+    type: String,
+    enum: Object.values(ScOrder.ORDER_STATUS),
+    default: ScOrder.ORDER_STATUS.APPLIED
   },
   scCardId: {
     type: String,

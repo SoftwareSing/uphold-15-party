@@ -1,15 +1,30 @@
-module.exports = class ScOrder {
+const ORDER_STATUS = Object.freeze({
+  APPLIED: 'applied',
+  PROCESSING: 'processing',
+  FINISH: 'finish',
+  REJECT: 'reject'
+})
+
+class ScOrder {
   /**
    * @param {Object} obj
    * @param {String} obj.scOrderId
+   * @param {String} obj.orderStatus
    * @param {String} obj.scCardId
    * @param {String} obj.scText
    * @param {String} obj.scNote
+   * @param {Date} obj.createdAt
    */
-  constructor ({ scOrderId, scCardId, scText, scNote }) {
+  constructor ({ scOrderId, orderStatus, scCardId, scText, scNote, createdAt }) {
     this.scOrderId = scOrderId
+    this.orderStatus = orderStatus
     this.scCardId = scCardId
     this.scText = scText
     this.scNote = scNote
+    this.createdAt = new Date(createdAt)
   }
 }
+
+ScOrder.ORDER_STATUS = ORDER_STATUS
+
+module.exports = ScOrder
