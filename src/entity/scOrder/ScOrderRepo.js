@@ -1,3 +1,4 @@
+const ScOrder = require('./ScOrder')
 const ScOrderModel = require('./ScOrderModel')
 const { buildScOrder } = require('./helper')
 
@@ -23,4 +24,13 @@ exports.getNewestList = async function () {
     .limit(100)
     .lean()
   return objList.map(buildScOrder)
+}
+
+exports.updateOrder = async function ({ scOrderId, orderStatus, imgUrl }) {
+  const update$set = {}
+  if (Object.values(ScOrder.ORDER_STATUS).includes(orderStatus)) update$set.orderStatus = orderStatus
+  if (imgUrl) update$set.imgUrl = imgUrl
+
+  if (Object.keys(update$set).length < 1) return
+  await ScOrderModel.updateOne({ _id: scOrderId }, { $set: update$set })
 }
