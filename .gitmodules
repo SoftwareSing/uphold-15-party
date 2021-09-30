@@ -1,0 +1,3 @@
+[submodule "uphold-15-party-web"]
+	path = uphold-15-party-web
+	url = https://github.com/SoftwareSing/uphold-15-party-web.git

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
+    "build_web": "sh build-web.sh",
     "server_dev": "NODE_ENV=development node ./src/server/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +19,7 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.7",
     "redis": "^3.1.2",
+    "svelte": "^3.43.1",
     "~common": "file:src/common",
     "~config": "file:config",
     "~entity": "file:src/entity",
