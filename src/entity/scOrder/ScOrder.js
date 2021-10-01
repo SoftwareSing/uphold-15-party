@@ -13,6 +13,7 @@ class ScOrder {
    * @param {String} obj.scCardId
    * @param {String} obj.scText
    * @param {String} obj.scNote
+   * @param {String} obj.imgUrl
    * @param {Date} obj.createdAt
    */
   constructor ({ scOrderId, orderStatus, scCardId, scText, scNote, imgUrl, createdAt }) {

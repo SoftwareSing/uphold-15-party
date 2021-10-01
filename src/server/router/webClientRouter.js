@@ -24,10 +24,7 @@ webClientRouter.get('/sc/apply', getPageHandleFunc((req) => {
   return WebClientController.normalPageHead({ title: '免費SC申請' })
 }))
 webClientRouter.get('/sc/track/:orderId', getPageHandleFunc((req) => {
-  return WebClientController.normalPageHead({
-    title: 'SC進度追蹤',
-    description: `SC進度追蹤 - 訂單編號 ${req.params.orderId}`
-  })
+  return WebClientController.scTrackOrderPageHead({ scOrderId: req.params.orderId })
 }))
 webClientRouter.get('/sc/track', getPageHandleFunc((req) => {
   return WebClientController.normalPageHead({ title: 'SC訂單列表' })
