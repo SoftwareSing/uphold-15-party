@@ -1,29 +1,33 @@
 const ScOrder = require('./ScOrder')
 const ScOrderModel = require('./ScOrderModel')
+const ScOrderBridge = require('./ScOrderBridge')
 const { buildScOrder } = require('./helper')
-
-const projection = { schemaVersion: 0, updatedAt: 0 }
 
 exports.order = async function ({ scCardId, scText, scNote }) {
   const doc = new ScOrderModel({ scCardId, scText, scNote })
   await doc.save()
+  await ScOrderBridge.delNewestIdListCache()
   const obj = doc.toObject()
   return buildScOrder(obj)
 }
 
 exports.getByOrderId = async function (scOrderId) {
-  const obj = await ScOrderModel.findById(scOrderId, projection).lean()
+  const obj = await ScOrderBridge.getOrder(scOrderId)
   if (!obj) return undefined
   return buildScOrder(obj)
 }
 
 exports.getNewestList = async function () {
-  const objList = await ScOrderModel
-    .find({}, projection)
-    .sort({ createdAt: -1 })
-    .limit(100)
-    .lean()
-  return objList.map(buildScOrder)
+  const newestIdList = await ScOrderBridge.getNewestIdList()
+  const objMap = await ScOrderBridge.getOrderMap(newestIdList)
+
+  const sortObjList = []
+  for (const id of newestIdList) {
+    if (!objMap.has(id)) continue
+    sortObjList.push(objMap.get(id))
+  }
+
+  return sortObjList.map(buildScOrder)
 }
 
 exports.updateOrder = async function ({ scOrderId, orderStatus, imgUrl }) {
@@ -33,4 +37,5 @@ exports.updateOrder = async function ({ scOrderId, orderStatus, imgUrl }) {
 
   if (Object.keys(update$set).length < 1) return
   await ScOrderModel.updateOne({ _id: scOrderId }, { $set: update$set })
+  await ScOrderBridge.delOrderCache(scOrderId)
 }
