@@ -12,6 +12,9 @@ exports.orderSc = async function ({ scCardNo, goodThru, code, password, scText, 
   if (!card || !await card.verifyCard({ cardNo: scCardNo, goodThru, code, password })) {
     throw new HttpError(403, 'SC卡驗證失敗，請確認輸入的卡片資訊是否正確')
   }
+  if (await ScOrderRepo.isScCardHasNotEndOrder(card.scCardId)) {
+    throw new HttpError(403, '這張SC卡還有尚未處理的訂單，完成前無法再次申請')
+  }
 
   const order = await ScOrderRepo.order({
     scCardId: card.scCardId,

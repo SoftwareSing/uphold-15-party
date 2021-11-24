@@ -39,3 +39,12 @@ exports.updateOrder = async function ({ scOrderId, orderStatus, imgUrl }) {
   await ScOrderModel.updateOne({ _id: scOrderId }, { $set: update$set })
   await ScOrderBridge.delOrderCache(scOrderId)
 }
+
+exports.isScCardHasNotEndOrder = async function (scCardId) {
+  const obj = await ScOrderModel.findOne({
+    scCardId,
+    orderStatus: { $nin: [ScOrder.ORDER_STATUS.FINISH, ScOrder.ORDER_STATUS.REJECT] }
+  }, { _id: 1 }).lean()
+
+  return Boolean(obj)
+}
